@@ -16,14 +16,17 @@ import numpy as np
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+ser=app.server
 
 app.layout = (
         html.Div([
-            html.H1("MotvizPy - A Motif Discovery tool", 
-                    style={'textAlign' : 'center'}),
+            html.H1('MotvizPy Mini - Conservation Score Calculator', 
+                    style={'textAlign' : 'center', 
+                           'font-family' : 'Century Gothic'}),
             
-            html.H4("A product of Exon", 
-                    style={'textAlign' : 'center'}),
+            html.H4("A product of Exon.", 
+                    style={'textAlign' : 'center', 
+                           'font-family' : 'Century Gothic'}),
             
             html.Div([
                 dcc.Upload(
@@ -62,14 +65,11 @@ def parse_contents(contents, filename, date):
             # Assume that the user uploaded a CSV file
             seq = seq_extract(io.StringIO(decoded.decode('utf-8')))
             seq = [[x for x in y] for y in seq]
-            print(seq)
             c = Analysis(seq, "1xef")
             c_ent = c.conservation_score(c.seq2np())
             norm_data = c.normalize_data(c_ent)
             norm_data_len = np.arange(len(norm_data))
-            
-            print(norm_data)
-            
+                        
     except Exception as e:
         print(e)
         return html.Div([
@@ -81,7 +81,7 @@ def parse_contents(contents, filename, date):
             html.H1(children='Conservation score per amino acid position', 
                     style={
                         'textAlign': 'center',
-                        'font-family' : 'Century Gotic'}
+                        'font-family' : 'Century Gothic'}
                     ),
 
             html.Div(children='''
